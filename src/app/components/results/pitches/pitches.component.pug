@@ -7,7 +7,6 @@ ng-template(#content)
   .info-bar
     .container
       .info {{ info }}
-      .divider
       .paging
         .prev((click)="turnPage('prev')", [ngClass]="{disabled: !paging.prev}")
           i.fas.fa-chevron-left 
@@ -17,15 +16,34 @@ ng-template(#content)
           | Next
           i.fas.fa-chevron-right 
   .content
+    .filters-mobile
+      .header((click)="toggleMobileFilters()")
+        i.fas.fa-tasks
+        | Filters
+      .filters-container([ngStyle]="{height: mobileFiltersHeight}")
+        ng-container(*ngFor="let filter of filters, let i = index")
+          ng-container(*ngIf="filter.options.length > 0")
+            .filters
+              .divider
+              .title {{ filter.name }}
+              .checkbox(*ngFor="let option of filter.options, let j = index", (click)="toggleFilter(i, j)")
+                input(type="checkbox", id="{{ option.type + '-' + option.id + '-' + j }}", [checked]="option.checked")
+                label(for="{{ option.type + '-' + option.id + '-' + j }}", (click)="$event.stopPropagation()")
+                label.label(for="{{ option.type + '-' + option.id + '-' + j }}", (click)="$event.stopPropagation()")
+                  | {{ option.id }} 
+                  span ({{ option.doc_count }})
     .sidebar
-      .filters(*ngFor="let filter of filters, let i = index")
-        .title {{ filter.name }}
-        .checkbox(*ngFor="let option of filter.options, let j = index", (click)="toggleFilter(i, j)")
-          input(type="checkbox", id="{{ option.type + '-' + option.id + '-' + j }}", [checked]="option.checked")
-          label(for="{{ option.type + '-' + option.id + '-' + j }}", (click)="$event.stopPropagation()")
-          label.label(for="{{ option.type + '-' + option.id + '-' + j }}", (click)="$event.stopPropagation()")
-            | {{ option.id }} 
-            span ({{ option.doc_count }})
+      ng-container(*ngFor="let filter of filters, let i = index")
+        ng-container(*ngIf="filter.options.length > 0")
+          .filters
+            .title {{ filter.name }}
+            .checkbox(*ngFor="let option of filter.options, let j = index", (click)="toggleFilter(i, j)")
+              input(type="checkbox", id="{{ option.type + '-' + option.id + '-' + j }}", [checked]="option.checked")
+              label(for="{{ option.type + '-' + option.id + '-' + j }}", (click)="$event.stopPropagation()")
+              label.label(for="{{ option.type + '-' + option.id + '-' + j }}", (click)="$event.stopPropagation()")
+                | {{ option.id }} 
+                span ({{ option.doc_count }})
+            .divider
     .pitches
       mlp-pitch-item(*ngFor="let pitch of pitches", [pitch]="pitch")
       .filter-layer(*ngIf="loadingFilters")

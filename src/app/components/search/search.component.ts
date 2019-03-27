@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from "@angular/core";
 import { Router } from "@angular/router";
-import { DataService } from "src/app/services/data.service";
 import { Subscription } from "rxjs";
+import { DataService } from "src/app/services/data.service";
 
 @Component({
   selector: "mlp-search",
@@ -31,6 +31,8 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   private selectedSportAndCity: Subscription;
 
+  @Output() closeMenu = new EventEmitter<string>();
+
   public toggleMenu(menu: string): void {
     for (let dropdown in this.dropdowns) {
       dropdown === menu ? (this.dropdowns[dropdown] = !this.dropdowns[dropdown]) : (this.dropdowns[dropdown] = false);
@@ -47,6 +49,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.dataService.cachedFilters = null;
     this.dataService.cachedSportAndCity = this.selected;
     this.dataService.selectedSportAndCity.next(this.selected);
+
     for (let input in this.selected) {
       this.invalid[input] = false;
       if (!this.selected[input]) {
@@ -54,8 +57,10 @@ export class SearchComponent implements OnInit, OnDestroy {
         valid = false;
       }
     }
+
     if (!valid) return;
     this.router.navigate(["/pitches"]);
+    this.closeMenu.emit("0px");
     this.dataService.loadingContent.next();
     this.dataService.getPitches(this.selected.sport, this.selected.city).subscribe((response: any) => {
       this.dataService.sendPitches.next(response);

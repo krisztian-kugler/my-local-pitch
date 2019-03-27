@@ -1,15 +1,24 @@
 \:host
   flex: 1
   overflow-y: auto
-  .content
-    max-width: 1024px
-    height: 100%
-    margin: 0 auto
-    .info-bar
+  .info-bar
+    position: sticky
+    z-index: 500
+    top: 0
+    left: 0
+    right: 0
+    height: 70px
+    background-color: white
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.33)
+    color: black
+    .container
       display: flex
+      flex-wrap: wrap
       align-items: center
-      height: 70px
-      color: black
+      max-width: 1084px
+      margin: 0 auto
+      padding: 0 30px
+      height: 100%
       .back
         display: flex
         cursor: pointer
@@ -20,21 +29,39 @@
           margin-right: 5px
         &:hover
           color: rgb(107, 173, 39)
+  .content
+    max-width: 1084px
+    min-height: calc(100vh - 210px)
+    margin: 0 auto
+    padding: 30px 30px 70px
     .container-top
       display: flex
-      height: 400px
       margin-bottom: 30px
-      padding: 30px
-      border: 1px solid rgb(222, 222, 222)
-      border-radius: 5px
-      .image
+      padding-bottom: 30px
+      border-bottom: 1px solid rgb(222, 222, 222)
+      .image-container
         flex-basis: 60%
         margin-right: 30px
-        img
+        .image-current
+          height: 360px
           width: 100%
-          height: 100%
+          margin-bottom: 10px
           border-radius: 5px
           object-fit: cover
+        .image-list
+          display: flex
+          height: 100px
+          img
+            width: 150px
+            margin-right: 10px
+            border-radius: 5px
+            cursor: pointer
+            opacity: .5
+            transition: opacity 250ms
+            &:hover
+              opacity: 1
+            &.selected
+              opacity: 1
       .pitch-header
         flex-basis: 40%
         h1.name
@@ -58,7 +85,6 @@
               color: rgb(131, 196, 65)
     .container-bottom
       display: flex
-      padding: 0 30px
       .about
         flex: 1
         margin-right: 60px
@@ -120,7 +146,7 @@
             .start-calendar, .end-calendar
               position: absolute
               top: calc(100% + 2px)
-              left: 0
+              right: 0
           .dropdown-menu
             position: absolute
             z-index: 1000
@@ -144,3 +170,33 @@
                 color: white
         .button
           align-self: flex-end
+
+    .footer-details
+      margin-top: auto
+
+@media screen and (max-width: 768px)
+  \:host
+    .content
+      .container-top
+        flex-direction: column
+        border: none
+        .image-container
+          margin-right: 0
+          .image-current
+            height: auto
+          .image-list
+            display: none
+      .container-bottom
+        flex-direction: column-reverse
+        .about
+          margin-right: 0
+          padding-top: 30px
+          border-top: 1px solid rgb(222, 222, 222)
+          .title
+            margin-bottom: 15px
+        .availability
+          flex-basis: auto
+          padding: 30px 0
+          border-top: 1px solid rgb(222, 222, 222)
+          .title
+            margin-bottom: 15px

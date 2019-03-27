@@ -4,29 +4,79 @@
   height: 100vh
   background-color: rgb(245, 245, 245)
   background-color: white
-
-.header
-  display: flex
-  justify-content: space-between
-  align-items: center
-  width: 100%
-  height: 70px
-  padding: 0 30px
-  background-color: rgb(49, 52, 54)
-  color: white
-  .logo
-    width: 150px
-    outline: none
-    cursor: pointer
-  .github
+  .header
     display: flex
+    justify-content: space-between
     align-items: center
-    color: rgba(255, 255, 255, .5)
-    a
-      margin-left: 5px
-      img
-        width: 40px
-        opacity: .5
-        transition: opacity 250ms
-        &:hover
-          opacity: 1
+    width: 100%
+    height: 70px
+    padding: 0 30px
+    background-color: rgb(49, 52, 54)
+    color: white
+    .wrapper
+      .logo
+        width: 150px
+        outline: none
+        cursor: pointer
+      .menu
+        display: none
+    .github
+      display: flex
+      align-items: center
+      color: rgba(255, 255, 255, .5)
+      a
+        margin-left: 5px
+        img
+          width: 40px
+          opacity: .5
+          transition: opacity 250ms
+          &:hover
+            opacity: 1
+    .mobile-dropdown
+      display: none
+
+@media screen and (max-width: 900px)
+  \:host
+    .header
+      flex-direction: column
+      height: auto
+      padding: 15px 30px
+      .logo
+        margin-bottom: 15px
+      .github
+        display: none
+
+@media screen and (max-width: 576px)
+  \:host
+    .header
+      position: relative
+      height: 60px
+      padding: 0 15px
+      .wrapper
+        display: flex
+        justify-content: space-between
+        align-items: center
+        width: 100%
+        height: 100%
+        .logo
+          margin-bottom: 0px
+        .menu
+          display: block
+          font-size: 32px
+          cursor: pointer
+          i
+            cursor: pointer
+      .search-header
+        display: none
+      .mobile-dropdown
+        position: fixed
+        z-index: 9999
+        top: 60px
+        left: 0
+        display: flex
+        align-items: center
+        width: 100%
+        padding: 0 30px
+        background-color: rgb(49, 52, 54)
+        overflow: hidden
+        transition: height 250ms

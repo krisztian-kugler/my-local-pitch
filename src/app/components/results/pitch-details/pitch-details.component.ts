@@ -1,5 +1,5 @@
-import { Component, OnInit } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Router } from "@angular/router";
 import { DataService } from "src/app/services/data.service";
 import { Subscription } from "rxjs";
 
@@ -8,13 +8,14 @@ import { Subscription } from "rxjs";
   templateUrl: "./pitch-details.component.pug",
   styleUrls: ["./pitch-details.component.sass"]
 })
-export class PitchDetailsComponent implements OnInit {
-  constructor(private router: Router, private route: ActivatedRoute, private dataService: DataService) {}
+export class PitchDetailsComponent implements OnInit, OnDestroy {
+  constructor(private router: Router, private dataService: DataService) {}
 
-  pitch: any;
-  sendSinglePitchSubscription: Subscription;
+  public pitch: any;
+  public currentImage: string;
+  private sendSinglePitchSubscription: Subscription;
 
-  calendars = {
+  public calendars = {
     start: {
       display: <boolean>false,
       date: new Date()
@@ -25,7 +26,7 @@ export class PitchDetailsComponent implements OnInit {
     }
   };
 
-  public toggleCalendar(calendarType: string) {
+  public toggleCalendar(calendarType: string): void {
     for (let calendar in this.calendars) {
       if (calendar === calendarType) continue;
       this.calendars[calendar].display = false;
@@ -51,6 +52,10 @@ export class PitchDetailsComponent implements OnInit {
     return `${date.getFullYear()}-${month}-${date.getDate()}`;
   }
 
+  public changeImage(image: string): void {
+    this.currentImage = image;
+  }
+
   public checkAvailability(): void {
     const params = {
       id: this.pitch.id,
@@ -68,12 +73,12 @@ export class PitchDetailsComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.calendars.start.date.setDate(this.calendars.start.date.getDate() + 1);
     this.calendars.end.date.setDate(this.calendars.end.date.getDate() + 2);
-
     this.sendSinglePitchSubscription = this.dataService.sendSinglePitch.subscribe((pitch: any) => {
       this.pitch = pitch;
+      this.changeImage(this.pitch.attributes.images.medium[0]);
     });
   }
 

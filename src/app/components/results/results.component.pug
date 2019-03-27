@@ -1,8 +1,13 @@
 header.header
-  img.logo(src="assets/img/mlp_logo.svg", alt="Logo", routerLink="/home")
-  mlp-search
+  .wrapper
+    img.logo(src="assets/img/mlp_logo.svg", routerLink="/home")
+    .menu
+      i.fas.fa-bars((click)="toggleMobileMenu()")
+  mlp-search.search-header
+  .mobile-dropdown([ngStyle]="{height: mobileDropdownHeight}")
+    mlp-search.search((closeMenu)="toggleMobileMenu()")
   .github
     | GitHub:
-    a(href="#")
-      img(src="assets/img/github_logo.svg", alt="GitHub")
+    a(href="https://github.com/krisztian-kugler/my-local-pitch", target="_blank")
+      img(src="assets/img/github_logo.svg")
 router-outlet

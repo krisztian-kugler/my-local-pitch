@@ -1,12 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 
 @Component({
   selector: "mlp-footer",
   templateUrl: "./footer.component.pug",
   styleUrls: ["./footer.component.sass"]
 })
-export class FooterComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit() {}
-}
+export class FooterComponent {}

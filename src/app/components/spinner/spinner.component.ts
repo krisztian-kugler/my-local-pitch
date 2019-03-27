@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 
 @Component({
   selector: "mlp-spinner",
@@ -7,6 +7,4 @@ import { Component, OnInit } from "@angular/core";
   `,
   styleUrls: ["./spinner.component.sass"]
 })
-export class SpinnerComponent {
-  constructor() {}
-}
+export class SpinnerComponent {}

@@ -1,11 +1,14 @@
-main.content
-  .info-bar
+.info-bar
+  .container
     .back
       i.fas.fa-chevron-left
       div((click)="backToPitches()") Back to pitches
+main.content
   .container-top
-    .image
-      img(src="{{ pitch.attributes.images.medium[0] }}", alt="")
+    .image-container
+      img.image-current(src="{{ currentImage }}")
+      .image-list
+        img(*ngFor="let image of pitch.attributes.images.medium", src="{{ image }}", [ngClass]="{selected: image === currentImage}", (click)="changeImage(image)")
     .pitch-header
       h1.name {{ pitch.attributes.name }}
       p.format
@@ -18,6 +21,7 @@ main.content
         .facility(*ngFor="let facility of pitch.attributes.facilities")
           i.fas.fa-check-circle
           p {{ facility }}
+
   .container-bottom
     .about
       h1.title About
@@ -39,3 +43,5 @@ main.content
             | {{ dateFormatter(calendars.end.date) }}
             mlp-calendar.end-calendar(*ngIf="calendars.end.display", [currentYear]="calendars.end.date.getFullYear()", [currentMonth]="calendars.end.date.getMonth()", (submit)="onSubmitDate('end', $event)")
       button.button((click)="checkAvailability()") Check
+  
+mlp-footer.footer-details

@@ -1,15 +1,15 @@
-.form
-  .dropdown.sports(id="sports")
-    .dropdown-toggle([ngClass]="{invalid: invalid.sport}", [ngStyle]="{color: selected.sport ? 'black' : 'rgb(160, 160, 160)'}", (click)="toggleMenu('sports')")
-      i.fas.fa-volleyball-ball
-      | {{ selected.sport ? selected.sport.name : "Select sport" }}
-    ul.dropdown-menu(*ngIf="dropdowns.sports", #dropdownMenu)
-      li.dropdown-item(*ngFor="let sport of sports", (click)="selectItem(sport, 'sports')") {{ sport.name }}
-  .dropdown.cities(id="cities")
-    .dropdown-toggle([ngClass]="{invalid: invalid.city}", [ngStyle]="{color: selected.city ? 'black' : 'rgb(160, 160, 160)'}", (click)="toggleMenu('cities')")
-      i.fas.fa-map-marker-alt
-      | {{ selected.city ? selected.city.name : "Select city" }}
-    ul.dropdown-menu(*ngIf="dropdowns.cities", #dropdownMenu)
-      li.dropdown-item(*ngFor="let city of cities", (click)="selectItem(city, 'cities')") {{ city.name }}
+.dropdown
+  .dropdown-toggle([ngClass]="{invalid: invalid.sport}", [ngStyle]="{color: selected.sport ? 'black' : 'rgb(160, 160, 160)'}", (click)="toggleMenu('sports')")
+    i.fas.fa-volleyball-ball
+    | {{ selected.sport ? selected.sport.name : "Select sport" }}
+  ul.dropdown-menu(*ngIf="dropdowns.sports")
+    li.dropdown-item(*ngFor="let sport of sports", (click)="selectItem(sport, 'sports')") {{ sport.name }}
 
-  button.button((click)="submit()") Go
+.dropdown
+  .dropdown-toggle([ngClass]="{invalid: invalid.city}", [ngStyle]="{color: selected.city ? 'black' : 'rgb(160, 160, 160)'}", (click)="toggleMenu('cities')")
+    i.fas.fa-map-marker-alt
+    | {{ selected.city ? selected.city.name : "Select city" }}
+  ul.dropdown-menu(*ngIf="dropdowns.cities")
+    li.dropdown-item(*ngFor="let city of cities", (click)="selectItem(city, 'cities')") {{ city.name }}
+
+button.button((click)="submit()") Go

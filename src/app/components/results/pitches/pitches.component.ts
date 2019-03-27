@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostBinding, ElementRef } from "@angular/core";
+import { Component, OnInit, OnDestroy, ElementRef } from "@angular/core";
 import { DataService } from "../../../services/data.service";
 import { Subscription } from "rxjs";
 
@@ -15,6 +15,7 @@ export class PitchesComponent implements OnInit, OnDestroy {
   public loadingFilters: boolean = false;
   public pitches: any = [];
   public filters: any = [];
+  public mobileFiltersHeight: "0px" | "fit-content" = "0px";
 
   private paging = {
     prev: <string>null,
@@ -25,6 +26,10 @@ export class PitchesComponent implements OnInit, OnDestroy {
   private filteredPitchesSubscription: Subscription;
   private contentLoaderSubscription: Subscription;
   private backFromDetailsSubscription: Subscription;
+
+  public toggleMobileFilters(): void {
+    this.mobileFiltersHeight === "0px" ? (this.mobileFiltersHeight = "fit-content") : (this.mobileFiltersHeight = "0px");
+  }
 
   public turnPage(direction: "prev" | "next"): void {
     if (!this.paging[direction]) return;
@@ -95,12 +100,10 @@ export class PitchesComponent implements OnInit, OnDestroy {
   private setPageLinks(response: any): void {
     response.links.prev ? (this.paging.prev = response.links.prev) : (this.paging.prev = null);
     response.links.next ? (this.paging.next = response.links.next) : (this.paging.next = null);
-    console.log(this.paging.prev, this.paging.next);
   }
 
   ngOnInit() {
     this.pitchesSubscription = this.dataService.sendPitches.subscribe((response: any) => {
-      console.log(response);
       if (this.dataService.cachedFilters) {
         this.filters = this.dataService.cachedFilters;
       } else {
@@ -108,14 +111,13 @@ export class PitchesComponent implements OnInit, OnDestroy {
         this.dataService.cachedFilters = this.filters;
       }
       this.pitches = response.data;
-      this.info = `We have found ${response.meta.total_items} venue(s) on ${response.meta.total_pages} page(s).`;
+      this.info = `${response.meta.total_items} venue(s) on ${response.meta.total_pages} page(s).`;
       this.setPageLinks(response);
       this.loadingContent = false;
     });
     this.filteredPitchesSubscription = this.dataService.sendFilteredPitches.subscribe((response: any) => {
-      console.log(response);
       this.pitches = response.data;
-      this.info = `We have found ${response.meta.total_items} venue(s) on ${response.meta.total_pages} page(s).`;
+      this.info = `${response.meta.total_items} venue(s) on ${response.meta.total_pages} page(s).`;
       this.setPageLinks(response);
       this.loadingFilters = false;
     });
@@ -127,7 +129,7 @@ export class PitchesComponent implements OnInit, OnDestroy {
       this.filters = this.dataService.cachedFilters;
       this.dataService.getPitches(...this.dataService.cachedFilterParams).subscribe((response: any) => {
         this.pitches = response.data;
-        this.info = `We have found ${response.meta.total_items} venue(s) on ${response.meta.total_pages} page(s).`;
+        this.info = `${response.meta.total_items} venue(s) on ${response.meta.total_pages} page(s).`;
         this.setPageLinks(response);
         this.loadingContent = false;
       });

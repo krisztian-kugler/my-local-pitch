@@ -7,37 +7,23 @@
   height: 100vh
   background-color: rgb(49, 52, 54)
   color: white
+  .logo
+    width: 400px
+    margin-bottom: 90px
+  .title
+    margin-bottom: 30px
+    font-weight: normal
+    font-size: 32px
 
-.logo
-  width: 400px
-  margin-bottom: 90px
-
-.cta
-  margin-bottom: 30px
-  font-weight: normal
-  font-size: 32px
-
-footer
-  position: fixed
-  bottom: 0px
-  display: flex
-  align-items: center
-  height: 70px
-  text-align: center
-  color: rgba(255, 255, 255, .5)
-  .divider
-    width: 1px
-    height: 40%
-    margin: 0 15px
-    background-color: rgb(131, 196, 65)
-  .github
-    display: flex
-    align-items: center
-    a
-      margin-left: 5px
-      img
-        width: 40px
-        opacity: .5
-        transition: opacity 250ms
-        &:hover
-          opacity: 1
+@media screen and (max-width: 576px)
+  \:host
+    padding: 0 30px
+    .logo
+      width: 100%
+      margin-bottom: 5vh
+    .title
+      font-size: 24px
+      text-align: center
+    .search
+      flex-direction: column
+      width: 100%
