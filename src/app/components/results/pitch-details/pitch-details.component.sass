@@ -40,28 +40,35 @@
       padding-bottom: 30px
       border-bottom: 1px solid rgb(222, 222, 222)
       .image-container
+        position: relative
         flex-basis: 60%
         margin-right: 30px
         .image-current
-          height: 360px
           width: 100%
-          margin-bottom: 10px
           border-radius: 5px
           object-fit: cover
-        .image-list
+        .image-prev, .image-next
+          position: absolute
+          top: 0
           display: flex
-          height: 100px
-          img
-            width: 150px
-            margin-right: 10px
-            border-radius: 5px
-            cursor: pointer
-            opacity: .5
-            transition: opacity 250ms
-            &:hover
-              opacity: 1
-            &.selected
-              opacity: 1
+          justify-content: center
+          align-items: center
+          width: 8%
+          height: calc(100% - 3px)
+          background-color: rgba(0, 0, 0, .1)
+          color: white
+          cursor: pointer
+          transition: background-color 250ms
+          &:hover
+            background-color: rgba(0, 0, 0, .5)
+        .image-prev
+          left: 0
+          border-top-left-radius: 5px
+          border-bottom-left-radius: 5px
+        .image-next
+          right: 0
+          border-top-right-radius: 5px
+          border-bottom-right-radius: 5px
       .pitch-header
         flex-basis: 40%
         h1.name
@@ -174,18 +181,24 @@
     .footer-details
       margin-top: auto
 
+@media screen and (max-width: 900px)
+  \:host
+    .content
+      padding: 15px 15px 30px
+
 @media screen and (max-width: 768px)
   \:host
     .content
       .container-top
         flex-direction: column
-        border: none
         .image-container
           margin-right: 0
+          margin-bottom: 10px
           .image-current
             height: auto
-          .image-list
-            display: none
+        .pitch-header
+          h1.name
+            font-size: 24px
       .container-bottom
         flex-direction: column-reverse
         .about
@@ -196,7 +209,15 @@
             margin-bottom: 15px
         .availability
           flex-basis: auto
-          padding: 30px 0
-          border-top: 1px solid rgb(222, 222, 222)
+          padding: 0 0 30px
           .title
             margin-bottom: 15px
+          .date-picker
+            justify-content: center
+          .button
+            align-self: center
+
+@media screen and (max-width: 576px)
+  \:host
+    .info-bar
+      height: 50px

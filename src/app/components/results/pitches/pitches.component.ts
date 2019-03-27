@@ -11,6 +11,7 @@ export class PitchesComponent implements OnInit, OnDestroy {
   constructor(private dataService: DataService, private element: ElementRef) {}
 
   public info: string = "";
+  public init: boolean = true;
   public loadingContent: boolean = true;
   public loadingFilters: boolean = false;
   public pitches: any = [];
@@ -103,6 +104,9 @@ export class PitchesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    if (!this.dataService.cachedSportAndCity) {
+      this.init = false;
+    }
     this.pitchesSubscription = this.dataService.sendPitches.subscribe((response: any) => {
       if (this.dataService.cachedFilters) {
         this.filters = this.dataService.cachedFilters;
@@ -122,10 +126,12 @@ export class PitchesComponent implements OnInit, OnDestroy {
       this.loadingFilters = false;
     });
     this.contentLoaderSubscription = this.dataService.loadingContent.subscribe(() => {
+      this.init = true;
       this.loadingContent = true;
     });
     this.backFromDetailsSubscription = this.dataService.backFromDetails.subscribe((response: any) => {
       if (!response) return;
+      this.init = true;
       this.filters = this.dataService.cachedFilters;
       this.dataService.getPitches(...this.dataService.cachedFilterParams).subscribe((response: any) => {
         this.pitches = response.data;

@@ -1,7 +1,8 @@
 ng-container(*ngIf="loadingContent; then spinner else content")
 
 ng-template(#spinner)
-    mlp-spinner.spinner
+    mlp-spinner.spinner(*ngIf="init")
+    .cta(*ngIf="!init") Select a sport and a city to display venues here.
 
 ng-template(#content)
   .info-bar

@@ -7,8 +7,10 @@ main.content
   .container-top
     .image-container
       img.image-current(src="{{ currentImage }}")
-      .image-list
-        img(*ngFor="let image of pitch.attributes.images.medium", src="{{ image }}", [ngClass]="{selected: image === currentImage}", (click)="changeImage(image)")
+      .image-prev((click)="prevImage()")
+        i.fas.fa-chevron-left
+      .image-next((click)="nextImage()")
+        i.fas.fa-chevron-right
     .pitch-header
       h1.name {{ pitch.attributes.name }}
       p.format

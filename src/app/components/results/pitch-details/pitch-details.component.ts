@@ -26,6 +26,26 @@ export class PitchDetailsComponent implements OnInit, OnDestroy {
     }
   };
 
+  public prevImage(): void {
+    const images: Array<string> = this.pitch.attributes.images.medium;
+    const index: number = images.indexOf(this.currentImage);
+    if (index === 0) {
+      this.currentImage = images[images.length - 1];
+    } else {
+      this.currentImage = images[index - 1];
+    }
+  }
+
+  public nextImage(): void {
+    const images: Array<string> = this.pitch.attributes.images.medium;
+    const index: number = images.indexOf(this.currentImage);
+    if (index === images.length - 1) {
+      this.currentImage = images[0];
+    } else {
+      this.currentImage = images[index + 1];
+    }
+  }
+
   public toggleCalendar(calendarType: string): void {
     for (let calendar in this.calendars) {
       if (calendar === calendarType) continue;
@@ -52,10 +72,6 @@ export class PitchDetailsComponent implements OnInit, OnDestroy {
     return `${date.getFullYear()}-${month}-${date.getDate()}`;
   }
 
-  public changeImage(image: string): void {
-    this.currentImage = image;
-  }
-
   public checkAvailability(): void {
     const params = {
       id: this.pitch.id,
@@ -78,7 +94,7 @@ export class PitchDetailsComponent implements OnInit, OnDestroy {
     this.calendars.end.date.setDate(this.calendars.end.date.getDate() + 2);
     this.sendSinglePitchSubscription = this.dataService.sendSinglePitch.subscribe((pitch: any) => {
       this.pitch = pitch;
-      this.changeImage(this.pitch.attributes.images.medium[0]);
+      this.currentImage = this.pitch.attributes.images.medium[0];
     });
   }
 

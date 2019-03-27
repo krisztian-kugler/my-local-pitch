@@ -1,0 +1,28 @@
+{
+  "sports": [
+    { "id": "athletics", "name": "Athletics", "type": "sport" },
+    { "id": "badminton", "name": "Badminton", "type": "sport" },
+    { "id": "basketball", "name": "Basketball", "type": "sport" },
+    { "id": "cricket", "name": "Cricket", "type": "sport" },
+    { "id": "football", "name": "Football", "type": "sport" },
+    { "id": "futsal", "name": "Futsal", "type": "sport" },
+    { "id": "gym", "name": "Gym", "type": "sport" },
+    { "id": "handball", "name": "Handball", "type": "sport" },
+    { "id": "hockey", "name": "Hockey", "type": "sport" },
+    { "id": "netball", "name": "Netball", "type": "sport" },
+    { "id": "rugby", "name": "Rugby", "type": "sport" },
+    { "id": "space hire", "name": "Space Hire", "type": "sport" },
+    { "id": "squash", "name": "Squash", "type": "sport" },
+    { "id": "swimming", "name": "Swimming", "type": "sport" },
+    { "id": "table tennis", "name": "Table Tennis", "type": "sport" },
+    { "id": "tennis", "name": "Tennis", "type": "sport" },
+    { "id": "volleyball", "name": "Volleyball", "type": "sport" }
+  ],
+  "cities": [
+    { "id": "brighton", "name": "Brighton", "type": "city" },
+    { "id": "dublin", "name": "Dublin", "type": "city" },
+    { "id": "london", "name": "London", "type": "city" },
+    { "id": "luton", "name": "Luton", "type": "city" },
+    { "id": "manchester", "name": "Manchester", "type": "city" }
+  ]
+}
