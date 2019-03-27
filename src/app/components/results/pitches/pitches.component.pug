@@ -1,0 +1,33 @@
+ng-container(*ngIf="loadingContent; then spinner else content")
+
+ng-template(#spinner)
+    mlp-spinner.spinner
+
+ng-template(#content)
+  .info-bar
+    .container
+      .info {{ info }}
+      .divider
+      .paging
+        .prev((click)="turnPage('prev')", [ngClass]="{disabled: !paging.prev}")
+          i.fas.fa-chevron-left 
+          | Prev
+        .divider
+        .next((click)="turnPage('next')", [ngClass]="{disabled: !paging.next}")
+          | Next
+          i.fas.fa-chevron-right 
+  .content
+    .sidebar
+      .filters(*ngFor="let filter of filters, let i = index")
+        .title {{ filter.name }}
+        .checkbox(*ngFor="let option of filter.options, let j = index", (click)="toggleFilter(i, j)")
+          input(type="checkbox", id="{{ option.type + '-' + option.id + '-' + j }}", [checked]="option.checked")
+          label(for="{{ option.type + '-' + option.id + '-' + j }}", (click)="$event.stopPropagation()")
+          label.label(for="{{ option.type + '-' + option.id + '-' + j }}", (click)="$event.stopPropagation()")
+            | {{ option.id }} 
+            span ({{ option.doc_count }})
+    .pitches
+      mlp-pitch-item(*ngFor="let pitch of pitches", [pitch]="pitch")
+      .filter-layer(*ngIf="loadingFilters")
+        mlp-spinner.filter-spinner
+  mlp-footer

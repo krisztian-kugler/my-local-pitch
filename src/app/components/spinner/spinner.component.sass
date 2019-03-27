@@ -1,0 +1,18 @@
+.spinner
+  width: 80px
+  height: 80px
+  border-radius: 50%
+  border-left: 8px solid transparent
+  border-top: 8px solid rgb(131, 196, 65)
+  border-right: 8px solid rgb(131, 196, 65)
+  border-bottom: 8px solid rgb(131, 196, 65)
+  animation-name: spin
+  animation-duration: 500ms
+  animation-timing-function: linear
+  animation-iteration-count: infinite
+
+@keyframes spin
+  from
+    transform: rotate(0deg)
+  to
+    transform: rotate(360deg)

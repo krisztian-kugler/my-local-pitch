@@ -1,0 +1,41 @@
+main.content
+  .info-bar
+    .back
+      i.fas.fa-chevron-left
+      div((click)="backToPitches()") Back to pitches
+  .container-top
+    .image
+      img(src="{{ pitch.attributes.images.medium[0] }}", alt="")
+    .pitch-header
+      h1.name {{ pitch.attributes.name }}
+      p.format
+        strong Format: 
+        | {{ pitch.attributes.format }}
+      p.surface
+        strong Surface: 
+        |{{ pitch.attributes.surface }} 
+      .facilities
+        .facility(*ngFor="let facility of pitch.attributes.facilities")
+          i.fas.fa-check-circle
+          p {{ facility }}
+  .container-bottom
+    .about
+      h1.title About
+      p.description {{ pitch.attributes.about ? pitch.attributes.about : "No description" }}
+    .availability
+      h1.title Check availability
+      .date-picker
+        span From:
+        .dropdown.start(id="start")
+          .dropdown-toggle((click)="toggleCalendar('start')")
+            i.far.fa-calendar-alt
+            | {{ dateFormatter(calendars.start.date) }}
+            mlp-calendar.start-calendar(*ngIf="calendars.start.display", [currentYear]="calendars.start.date.getFullYear()", [currentMonth]="calendars.start.date.getMonth()", (submit)="onSubmitDate('start', $event)")
+      .date-picker
+        span To:
+        .dropdown.start(id="end")
+          .dropdown-toggle((click)="toggleCalendar('end')")
+            i.far.fa-calendar-alt
+            | {{ dateFormatter(calendars.end.date) }}
+            mlp-calendar.end-calendar(*ngIf="calendars.end.display", [currentYear]="calendars.end.date.getFullYear()", [currentMonth]="calendars.end.date.getMonth()", (submit)="onSubmitDate('end', $event)")
+      button.button((click)="checkAvailability()") Check

@@ -1,0 +1,7 @@
+[
+  { "id": "brighton", "name": "Brighton" },
+  { "id": "dublin", "name": "Dublin" },
+  { "id": "london", "name": "London" },
+  { "id": "luton", "name": "Luton" },
+  { "id": "manchester", "name": "Manchester" }
+]

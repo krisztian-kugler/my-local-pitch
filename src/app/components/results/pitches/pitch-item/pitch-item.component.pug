@@ -1,0 +1,15 @@
+img([src]="pitch.attributes.images.small[0]", alt="")
+.details
+  h1 {{ pitch.attributes.name }}
+  p.format
+    strong Format: 
+    |
+    span {{ pitch.attributes.format }}
+  p.surface
+    strong Surface: 
+    |
+    span {{ pitch.attributes.surface }}
+  .facilities
+    .facility(*ngFor="let facility of pitch.attributes.facilities")
+      i.fas.fa-check-circle
+      p {{ facility }}
